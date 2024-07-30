@@ -1,4 +1,4 @@
-# Setting Up the AGX Orin NVblox Environment
+# Setting Up the AGX Orin NVSLAM Environment
 
 ## 1. Installing Dependencies
 
@@ -57,14 +57,22 @@ Certainly! Here's a more tactful and user-friendly way to convey the instruction
 
 ---
 
-## Ready to Launch NVblox Examples
+## Ready to Launch NVSLAM Examples
 
-Assuming all necessary software has been compiled and installed correctly, you should now be able to run the NVblox examples directly. 
+Assuming all necessary software has been compiled and installed correctly, you should now be able to run the NVSLAM examples directly. 
 
 ### Preparing Your Environment
-It is likely that you have already placed the relevant packages in the home directory of your AGX Orin. For the next steps, please ensure that you are operating within the `~/isaac_ros-dev` directory on your system. This will help in keeping all commands organized and functioning as expected.
+get source code and initialize submodules:
+```bash
+git clone  https://github.com/orbbec/isaac_ros-dev.git
+git submodule update --init --recursive
+```
+Build the workspace:
+```bash
+cd isaac_ros-dev
+colcon build
+```
 
-Feel free to proceed with launching the applications as detailed in the setup instructions. If you encounter any issues, verify that you are in the correct directory and that all installation steps have been properly completed.
 
 ### Preparing the Camera
 Execute the following in the terminal to set up the camera:
@@ -79,7 +87,7 @@ Open two terminal windows and proceed as follows:
 #### Window 1 - Camera Launch
 ```bash
 source install/setup.bash
-ros2 launch orbbec_camera gemini_330_series.launch.py laser_on_off_mode:=1
+ros2 launch isaac_ros_launch isaac_ros_visual_slam_gemini.launch.py
 ```
 Note: If you encounter a "Resource busy" error, please retry after a few seconds.
 
@@ -95,18 +103,11 @@ Set up and run NVSLAM using three terminal windows:
 ### Window 1 - Launch Camera for NVSLAM
 ```bash
 source install/setup.bash
-ros2 launch orbbec_camera gemini_330_series.launch.py enable_laser:=false
-```
-Repeat the attempt if a "Resource busy" error occurs.
-
-### Window 2 - Execute Visual SLAM
-```bash
-source install/setup.bash
-ros2 launch isaac_ros_visual_slam isaac_ros_visual_slam_orbbec.launch.py
+ ros2 launch isaac_ros_launch isaac_ros_visual_slam_gemini.launch.py 
 ```
 
-### Window 3 - Start RViz2
+### Window 2 - Start RViz2
 ```bash
 source install/setup.bash
-rviz2 -d src/isaac_ros_visual_slam/isaac_ros_visual_slam/rviz/default.cfg.rviz
+rviz2 -d src/isaac_ros_launch/rviz/orbbec.rviz 
 ```
