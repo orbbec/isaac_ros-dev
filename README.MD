@@ -1,15 +1,22 @@
-# Setting Up the AGX Orin NVSLAM Environment
+# NVSLAM and NVblox Setup Guide for AGX and x64 NVIDIA GPU Platforms
 
-## 1. Installing Dependencies
+This guide covers the setup process for NVSLAM and NVblox environments on both NVIDIA Jetson AGX platforms and x64 platforms with NVIDIA GPUs. Both platforms are based on Ubuntu 20.04.
 
-### CUDA Installation
-Check for the presence of CUDA using `nvcc --version`. If not installed, proceed with the following command:
+## 1. Platform-Specific Steps
+
+### 1.1 CUDA Installation (if not already installed)
+
+Check if CUDA is already installed:
+```bash
+nvcc --version
+```
+
+If not installed, run:
 ```bash
 sudo apt-get install cuda
 ```
 
-#### Adding CUDA Environment Variables
-Configure your system's environment variables to ensure proper operation of CUDA:
+Configure CUDA environment variables:
 ```bash
 echo 'export PATH=/usr/local/cuda/bin:$PATH' >> ~/.bashrc
 echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
@@ -17,97 +24,99 @@ echo 'export CUDA_HOME=/usr/local/cuda' >> ~/.bashrc
 source ~/.bashrc
 ```
 
-#### Verifying CUDA Installation
-To verify CUDA installation:
+Verify CUDA installation:
 ```bash
 nvcc --version
 ```
 
-### ROS2 Humble Installation
-Set up the APT repository using the guidelines provided on [NVIDIA's Isaac ROS build farm CDN](https://nvidia-isaac-ros.github.io/getting_started/isaac_ros_buildfarm_cdn.html).
+## 2. Common Steps (for both AGX and x64 Platforms)
+
+### 2.1 ROS2 Humble Installation
+
+Set up the APT repository using [NVIDIA's Isaac ROS build farm repo](https://nvidia-isaac-ros.github.io/getting_started/isaac_apt_repository.html). Please select the Isaac ROS 2.0 version.
+
+Then install ROS2 Humble:
 ```bash
 sudo apt-get update
 sudo apt-get install ros-humble-desktop-full
 ```
 
-## 2. Installing the Negotiated Package
-Install ROS dependencies and the negotiated package:
+### 2.2 Installing the Negotiated Package
+
 ```bash
 rosdep init
 curl -o /etc/ros/rosdep/sources.list.d/nvidia-isaac.yaml https://isaac.download.nvidia.com/isaac-ros/extra_rosdeps.yaml
-echo "yaml file:///etc/ros/rosdep/sources.list.d/nvidia-isaac.yaml" | tee /etc/ros/rosdep/sources.list.d/00-nvidia-isaac.list
+echo "yaml file:///etc/ros/rosdep/sources.list.d/nvidia-isaac.yaml" | sudo tee /etc/ros/rosdep/sources.list.d/00-nvidia-isaac.list
 rosdep update
-sudo apt-get install -y build-essential devscripts dh-make quilt fakeroot 
+sudo apt-get install -y build-essential devscripts dh-make quilt fakeroot
+
 mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src \
     && git clone https://github.com/osrf/negotiated && cd negotiated && git checkout master \
-    && source ~/ros2_ws/setup.bash \
+    && source /opt/ros/humble/setup.bash \
     && cd negotiated_interfaces && bloom-generate rosdebian && fakeroot debian/rules binary \
-    && cd ../ && apt-get install -y ./*.deb && rm ./*.deb \
+    && cd ../ && sudo apt-get install -y ./*.deb && rm ./*.deb \
     && cd negotiated && bloom-generate rosdebian && fakeroot debian/rules binary \
-    && cd ../ && apt-get install -y ./*.deb && rm ./*.deb
+    && cd ../ && sudo apt-get install -y ./*.deb && rm ./*.deb
 ```
 
-## 3. Additional Dependencies
-Further required libraries and ROS packages:
+### 2.3 Additional Dependencies
+
 ```bash
 sudo apt install libnvvpi2 ros-humble-isaac-ros-nvblox ros-humble-isaac-ros-visual-slam
 ```
 
-Certainly! Here's a more tactful and user-friendly way to convey the instructions, ensuring clarity while maintaining a polite tone:
+## 3. Setting Up the Environment
 
----
+### 3.1 Get Source Code and Initialize Submodules
 
-## Ready to Launch NVSLAM Examples
-
-Assuming all necessary software has been compiled and installed correctly, you should now be able to run the NVSLAM examples directly. 
-
-### Preparing Your Environment
-get source code and initialize submodules:
 ```bash
-git clone  https://github.com/orbbec/isaac_ros-dev.git
+git clone https://github.com/orbbec/isaac_ros-dev.git
+cd isaac_ros-dev
 git submodule update --init --recursive
 ```
-Build the workspace:
+
+### 3.2 Build the Workspace
+
 ```bash
-cd isaac_ros-dev
 colcon build
 ```
 
+### 3.3 Prepare the Camera
 
-### Preparing the Camera
-Execute the following in the terminal to set up the camera:
-```bash 
+```bash
 cd src/OrbbecSDK_ROS2/orbbec_camera/scripts
 sudo bash install_udev_rules.sh
 ```
 
-### Launching the Camera
-Open two terminal windows and proceed as follows:
+## 4. Running Examples
 
-#### Window 1 - Camera Launch
+Note: NVSLAM and NVblox are separate examples and cannot be run simultaneously. Choose one of the following examples to run.
+
+### 4.1 Running NVSLAM Example
+
+To run the NVSLAM example, open three terminal windows:
+
+#### Terminal 1 - Launch Camera for NVSLAM
+
 ```bash
 source install/setup.bash
-ros2 launch isaac_ros_launch isaac_ros_visual_slam_gemini.launch.py
-```
-Note: If you encounter a "Resource busy" error, please retry after a few seconds.
-
-### Running NVblox Examples
-```bash
-source install/setup.bash
-ros2 launch nvblox_examples_bringup orbbec_dynamics_example.launch.py
-```
-
-## NVSLAM Setup Instructions
-Set up and run NVSLAM using three terminal windows:
-
-### Window 1 - Launch Camera for NVSLAM
-```bash
-source install/setup.bash
- ros2 launch isaac_ros_launch isaac_ros_visual_slam_gemini.launch.py 
+ros2 launch isaac_ros_launch isaac_ros_visual_slam_orbbec.launch.py
 ```
 
-### Window 2 - Start RViz2
+#### Terminal 2 - Start RViz2 for NVSLAM
+
 ```bash
 source install/setup.bash
-rviz2 -d src/isaac_orbbec_launch/rviz/orbbec.rviz 
+rviz2 -d src/isaac_orbbec_launch/rviz/orbbec.rviz
+```
+
+### 4.2 Running NVblox Example
+
+To run the NVblox example, open two terminal windows:
+
+#### Terminal 1 - Launch NVblox Example
+
+```bash
+source install/setup.bash
+ros2 launch isaac_orbbec_launch orbbec_dynamics_example.launch.py
 ```
