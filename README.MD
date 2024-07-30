@@ -109,5 +109,5 @@ source install/setup.bash
 ### Window 2 - Start RViz2
 ```bash
 source install/setup.bash
-rviz2 -d src/isaac_ros_launch/rviz/orbbec.rviz 
+rviz2 -d src/isaac_orbbec_launch/rviz/orbbec.rviz 
 ```

@@ -10,9 +10,9 @@
 [submodule "src/OrbbecSDK_ROS2"]
 	path = src/OrbbecSDK_ROS2
 	url = https://github.com/orbbec/OrbbecSDK_ROS2.git
-[submodule "src/isaac_ros_launch"]
-	path = src/isaac_ros_launch
-	url = https://github.com/orbbec/isaac_ros_launch.git
+[submodule "src/isaac_orbbec_launch"]
+	path = src/isaac_orbbec_launch
+	url = https://github.com/orbbec/isaac_orbbec_launch.git
 [submodule "src/orbbec_camera_splitter"]
 	path = src/orbbec_camera_splitter
 	url = https://github.com/orbbec/orbbec_camera_splitter.git
