@@ -1,6 +1,7 @@
-# NVSLAM and NVblox Setup Guide for AGX and x64 NVIDIA GPU Platforms
 
-This guide covers the setup process for NVSLAM and NVblox environments on both NVIDIA Jetson AGX platforms and x64 platforms with NVIDIA GPUs. Both platforms are based on Ubuntu 20.04.
+# NVSLAM and NVblox Setup Guide for AGX Orin with Orbbec Gemini Cameras
+
+This guide covers the setup process for NVSLAM and NVblox environments on the NVIDIA Jetson AGX Orin platform. The setup is based on Ubuntu 22.04 with JetPack 6. This guide specifically addresses the use of Orbbec Gemini cameras, tested with the Gemini 335L and Gemini 335L models.
 
 ## 1. Platform-Specific Steps
 
@@ -33,7 +34,7 @@ nvcc --version
 
 ### 2.1 ROS2 Humble Installation
 
-Set up the APT repository using [NVIDIA's Isaac ROS build farm repo](https://nvidia-isaac-ros.github.io/getting_started/isaac_apt_repository.html). Please select the Isaac ROS 2.0 version.
+Set up the APT repository using [NVIDIA's Isaac ROS build farm repo](https://nvidia-isaac-ros.github.io/getting_started/isaac_apt_repository.html). Please select the Isaac ROS 3.0 version.
 
 Then install ROS2 Humble:
 ```bash
@@ -62,7 +63,7 @@ mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src \
 ### 2.3 Additional Dependencies
 
 ```bash
-sudo apt install libnvvpi2 ros-humble-isaac-ros-nvblox ros-humble-isaac-ros-visual-slam
+sudo apt install libnvvpi3 ros-humble-isaac-ros-nvblox ros-humble-isaac-ros-visual-slam
 ```
 
 ## 3. Setting Up the Environment
@@ -100,7 +101,7 @@ To run the NVSLAM example, open three terminal windows:
 
 ```bash
 source install/setup.bash
-ros2 launch isaac_ros_launch isaac_ros_visual_slam_orbbec.launch.py
+ros2 launch isaac_orbbec_launch isaac_ros_visual_slam_orbbec.launch.py
 ```
 
 #### Terminal 2 - Start RViz2 for NVSLAM
