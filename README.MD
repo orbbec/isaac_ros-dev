@@ -1,7 +1,7 @@
 
 # NVSLAM and NVblox Setup Guide for AGX Orin with Orbbec Gemini Cameras
 
-This guide covers the setup process for NVSLAM and NVblox environments on the NVIDIA Jetson AGX Orin platform. The setup is based on Ubuntu 22.04 with JetPack 6. This guide specifically addresses the use of Orbbec Gemini cameras, tested with the Gemini 335L and Gemini 335L models.
+This guide covers the setup process for NVSLAM and NVblox environments on the NVIDIA Jetson AGX Orin platform. The setup is based on Ubuntu 22.04 with JetPack 6. This guide specifically addresses the use of Orbbec Gemini cameras, tested with the Gemini 335L and Gemini 336L models.
 
 ## 1. Platform-Specific Steps
 
