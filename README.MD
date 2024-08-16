@@ -30,7 +30,7 @@ Verify CUDA installation:
 nvcc --version
 ```
 
-## 2. Common Steps (for both AGX and x64 Platforms)
+## 2. Common Steps
 
 ### 2.1 ROS2 Humble Installation
 
@@ -121,3 +121,9 @@ To run the NVblox example, open two terminal windows:
 source install/setup.bash
 ros2 launch isaac_orbbec_launch orbbec_dynamics_example.launch.py
 ```
+
+## 5. Demo Video
+
+For a demonstration of Orbbec Gemini 335L on NVIDIA Jetson AGX Orin with Isaac ROS Visual SLAM and Nvblox, you can watch this video:
+
+[Orbbec Gemini 335L Nvblox Demo](https://youtu.be/jpbjC_9eQEI?si=UKw3BR0Gjs6QiKLb)
