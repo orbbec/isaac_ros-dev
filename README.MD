@@ -49,7 +49,7 @@ rosdep init
 sudo curl -o /etc/ros/rosdep/sources.list.d/nvidia-isaac.yaml https://isaac.download.nvidia.com/isaac-ros/extra_rosdeps.yaml
 echo "yaml file:///etc/ros/rosdep/sources.list.d/nvidia-isaac.yaml" | sudo tee /etc/ros/rosdep/sources.list.d/00-nvidia-isaac.list
 rosdep update
-sudo apt-get install -y build-essential devscripts dh-make quilt fakeroot
+sudo apt-get install -y build-essential devscripts dh-make quilt fakeroot python3-bloom
 
 mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src \
     && git clone https://github.com/osrf/negotiated && cd negotiated && git checkout master \
