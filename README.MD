@@ -119,7 +119,7 @@ rviz2 -d src/isaac_orbbec_launch/rviz/orbbec.rviz
 
 ### 4.2 Running NVblox Example
 
-To run the NVblox example, open two terminal windows:
+To run the NVblox example, open one terminal windows:
 
 #### Terminal 1 - Launch NVblox Example
 
