@@ -1,4 +1,3 @@
-
 # NVSLAM and NVblox Setup Guide for AGX Orin with Orbbec Gemini Cameras
 
 This guide covers the setup process for NVSLAM and NVblox environments on the NVIDIA Jetson AGX Orin platform. The setup is based on Ubuntu 22.04 with JetPack 6. This guide specifically addresses the use of Orbbec Gemini cameras, tested with the Gemini 335L and Gemini 336L models.
@@ -39,18 +38,25 @@ Set up the APT repository using [NVIDIA's Isaac ROS build farm repo](https://nvi
 Then install ROS2 Humble:
 ```bash
 sudo apt-get update
-sudo apt-get install ros-humble-desktop-full
+sudo apt-get install ros-humble-desktop-full python3-rosdep
 ```
 
 ### 2.2 Installing the Negotiated Package
 
 ```bash
-rosdep init
+sudo rosdep init
 sudo curl -o /etc/ros/rosdep/sources.list.d/nvidia-isaac.yaml https://isaac.download.nvidia.com/isaac-ros/extra_rosdeps.yaml
 echo "yaml file:///etc/ros/rosdep/sources.list.d/nvidia-isaac.yaml" | sudo tee /etc/ros/rosdep/sources.list.d/00-nvidia-isaac.list
-rosdep update
 sudo apt-get install -y build-essential devscripts dh-make quilt fakeroot python3-bloom
+```
 
+Edit `/etc/ros/rosdep/sources.list.d/nvidia-isaac.yaml`, replace `focal` with `jammy`, then run:
+
+```bash
+rosdep update
+```
+
+```bash
 mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src \
     && git clone https://github.com/osrf/negotiated && cd negotiated && git checkout master \
     && source /opt/ros/humble/setup.bash \
@@ -63,7 +69,7 @@ mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src \
 ### 2.3 Additional Dependencies
 
 ```bash
-sudo apt install libnvvpi3 ros-humble-isaac-ros-nvblox ros-humble-isaac-ros-visual-slam
+sudo apt install vpi3-dev libnvvpi3 ros-humble-isaac-ros-nvblox ros-humble-isaac-ros-visual-slam
 ```
 
 ## 3. Setting Up the Environment
