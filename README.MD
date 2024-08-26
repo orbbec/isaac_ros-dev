@@ -95,6 +95,16 @@ cd src/OrbbecSDK_ROS2/orbbec_camera/scripts
 sudo bash install_udev_rules.sh
 ```
 
+### 3.4 Increase USB Memory buffer
+
+```bash
+echo 128 | sudo tee /sys/module/usbcore/parameters/usbfs_memory_mb
+```
+
+### 3.5 Setup DDS configuration
+
+Please refer to the [Fast DDS Configuration](https://github.com/orbbec/OrbbecSDK_ROS2/blob/main/docs/fastdds_tuning.md) for more information.
+
 ## 4. Running Examples
 
 Note: NVSLAM and NVblox are separate examples and cannot be run simultaneously. Choose one of the following examples to run.
