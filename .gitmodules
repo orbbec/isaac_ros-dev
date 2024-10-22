@@ -16,3 +16,9 @@
 [submodule "src/orbbec_camera_splitter"]
 	path = src/orbbec_camera_splitter
 	url = https://github.com/orbbec/orbbec_camera_splitter.git
+[submodule "src/isaac_ros_examples"]
+	path = src/isaac_ros_examples
+	url = https://github.com/orbbec/isaac_ros_examples.git
+[submodule "src/isaac_ros_pose_estimation"]
+	path = src/isaac_ros_pose_estimation
+	url = https://github.com/orbbec/isaac_ros_pose_estimation.git
