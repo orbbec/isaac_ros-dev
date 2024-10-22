@@ -1,6 +1,6 @@
-# NVSLAM, NVblox and Foundationpose Setup Guide for AGX Orin with Orbbec Gemini Cameras
+# Nvblox, cuVSLAM and Foundationpose Setup Guide for AGX Orin with Orbbec Gemini Cameras
 
-This guide covers the setup process for NVSLAM and NVblox environments on the NVIDIA Jetson AGX Orin platform. The setup is based on Ubuntu 22.04 with JetPack 6. This guide specifically addresses the use of Orbbec Gemini cameras, tested with the Gemini 335L, Gemini 335,  Gemini 336L and Gemini 336 models.
+This guide covers the setup process for Nvblox, cuVSLAM and Foundationpose environments on the NVIDIA Jetson AGX Orin platform. The setup is based on Ubuntu 22.04 with JetPack 6. This guide specifically addresses the use of Orbbec Gemini cameras, tested with the Gemini 335L, Gemini 335,  Gemini 336L and Gemini 336 models.
 
 ## 1. Platform-Specific Steps
 
@@ -74,7 +74,7 @@ mkdir -p ~/ros2_ws/src && cd ~/ros2_ws/src \
 ### 2.3 Additional Dependencies
 
 ```bash
-sudo apt install vpi3-dev libnvvpi3 ros-humble-isaac-ros-nvblox ros-humble-isaac-ros-visual-slam
+sudo apt install vpi3-dev libnvvpi3 ros-humble-isaac-ros-Nvblox ros-humble-isaac-ros-visual-slam
 ```
 
 ## 3. Setting Up the Environment
@@ -112,31 +112,31 @@ Please refer to the [Fast DDS Configuration](https://github.com/orbbec/OrbbecSDK
 
 ## 4. Running Examples
 
-Note: NVSLAM and NVblox are separate examples and cannot be run simultaneously. Choose one of the following examples to run.
+Note: cuVSLAM and Nvblox are separate examples and cannot be run simultaneously. Choose one of the following examples to run.
 
-### 4.1 Running NVSLAM Example
+### 4.1 Running cuVSLAM Example
 
-To run the NVSLAM example, open three terminal windows:
+To run the cuVSLAM example, open two terminal windows:
 
-#### Terminal 1 - Launch Camera for NVSLAM
+#### Terminal 1 - Launch Camera for cuVSLAM
 
 ```bash
 source install/setup.bash
 ros2 launch isaac_orbbec_launch isaac_ros_visual_slam_orbbec.launch.py
 ```
 
-#### Terminal 2 - Start RViz2 for NVSLAM
+#### Terminal 2 - Start RViz2 for cuVSLAM
 
 ```bash
 source install/setup.bash
 rviz2 -d src/isaac_orbbec_launch/rviz/orbbec.rviz
 ```
 
-### 4.2 Running NVblox Example
+### 4.2 Running Nvblox Example
 
-To run the NVblox example, open one terminal windows:
+To run the Nvblox example, open one terminal windows:
 
-#### Terminal 1 - Launch NVblox Example
+#### Terminal 1 - Launch Nvblox Example
 
 ```bash
 source install/setup.bash
@@ -147,14 +147,14 @@ ros2 launch isaac_orbbec_launch orbbec_dynamics_example.launch.py
 
 Please refer to the following link for more information: [ISAAC ROS FoundationPose](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_pose_estimation/isaac_ros_foundationpose/index.html).
 
-To run the Foundationpose example, open one terminal windows:
+To run the Foundationpose example, open two terminal windows:
 
 #### Terminal 1 - Build and Run Foundationpose Example
 
 ```bash
 colcon build --cmake-clean-first --packages-select isaac_ros_examples isaac_ros_orbbec isaac_ros_foundationpose orbbec_camera orbbec_camera_msgs orbbec_description
 source install/setup.bash
-ros2 launch isaac_ros_examples isaac_ros_examples.launch.py launch_fragments:=realsense_mono_rect_depth,foundationpose mesh_file_path:=${ISAAC_ROS_WS}/isaac_ros_assets/isaac_ros_foundationpose/Mac_and_cheese_0_1/Mac_and_cheese_0_1.obj texture_path:=${ISAAC_ROS_WS}/isaac_ros_assets/isaac_ros_foundationpose/Mac_and_cheese_0_1/materials/textures/baked_mesh_tex0.png score_engine_file_path:=${ISAAC_ROS_WS}/isaac_ros_assets/models/foundationpose/score_trt_engine.plan refine_engine_file_path:=${ISAAC_ROS_WS}/isaac_ros_assets/models/foundationpose/refine_trt_engine.plan rt_detr_engine_file_path:=${ISAAC_ROS_WS}/isaac_ros_assets/models/synthetica_detr/sdetr_grasp.plan
+ros2 launch isaac_ros_examples isaac_ros_examples.launch.py launch_fragments:=orbbec_mono_rect_depth,foundationpose mesh_file_path:=${ISAAC_ROS_WS}/isaac_ros_assets/isaac_ros_foundationpose/Mac_and_cheese_0_1/Mac_and_cheese_0_1.obj texture_path:=${ISAAC_ROS_WS}/isaac_ros_assets/isaac_ros_foundationpose/Mac_and_cheese_0_1/materials/textures/baked_mesh_tex0.png score_engine_file_path:=${ISAAC_ROS_WS}/isaac_ros_assets/models/foundationpose/score_trt_engine.plan refine_engine_file_path:=${ISAAC_ROS_WS}/isaac_ros_assets/models/foundationpose/refine_trt_engine.plan rt_detr_engine_file_path:=${ISAAC_ROS_WS}/isaac_ros_assets/models/synthetica_detr/sdetr_grasp.plan
 ```
 
 #### Terminal 2 - Start RViz2 for Foundationpose
@@ -166,6 +166,6 @@ rviz2 -d  $(ros2 pkg prefix isaac_ros_foundationpose --share)/rviz/foundationpos
 
 ## 5. Demo Video
 
-For a demonstration of Orbbec Gemini 335L on NVIDIA Jetson AGX Orin with Isaac ROS Visual SLAM, Nvblox and Foundationpose, you can watch this video:
+For a demonstration of Orbbec Gemini 335L on NVIDIA Jetson AGX Orin with Isaac ROS Nvblox, you can watch this video:
 
 [Orbbec Gemini 335L Nvblox Demo](https://youtu.be/jpbjC_9eQEI?si=UKw3BR0Gjs6QiKLb)
