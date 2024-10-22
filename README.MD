@@ -1,22 +1,25 @@
-# NVSLAM and NVblox Setup Guide for AGX Orin with Orbbec Gemini Cameras
+# NVSLAM, NVblox and Foundationpose Setup Guide for AGX Orin with Orbbec Gemini Cameras
 
-This guide covers the setup process for NVSLAM and NVblox environments on the NVIDIA Jetson AGX Orin platform. The setup is based on Ubuntu 22.04 with JetPack 6. This guide specifically addresses the use of Orbbec Gemini cameras, tested with the Gemini 335L and Gemini 336L models.
+This guide covers the setup process for NVSLAM and NVblox environments on the NVIDIA Jetson AGX Orin platform. The setup is based on Ubuntu 22.04 with JetPack 6. This guide specifically addresses the use of Orbbec Gemini cameras, tested with the Gemini 335L, Gemini 335,  Gemini 336L and Gemini 336 models.
 
 ## 1. Platform-Specific Steps
 
 ### 1.1 CUDA Installation (if not already installed)
 
 Check if CUDA is already installed:
+
 ```bash
 nvcc --version
 ```
 
 If not installed, run:
+
 ```bash
 sudo apt-get install cuda
 ```
 
 Configure CUDA environment variables:
+
 ```bash
 echo 'export PATH=/usr/local/cuda/bin:$PATH' >> ~/.bashrc
 echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
@@ -25,6 +28,7 @@ source ~/.bashrc
 ```
 
 Verify CUDA installation:
+
 ```bash
 nvcc --version
 ```
@@ -33,9 +37,10 @@ nvcc --version
 
 ### 2.1 ROS2 Humble Installation
 
-Set up the APT repository using [NVIDIA's Isaac ROS build farm repo](https://nvidia-isaac-ros.github.io/getting_started/isaac_apt_repository.html). Please select the Isaac ROS 3.0 version.
+Set up the APT repository using [NVIDIA&#39;s Isaac ROS build farm repo](https://nvidia-isaac-ros.github.io/getting_started/isaac_apt_repository.html). Please select the Isaac ROS 3.0 version.
 
 Then install ROS2 Humble:
+
 ```bash
 sudo apt-get update
 sudo apt-get install ros-humble-desktop-full python3-rosdep
@@ -138,8 +143,29 @@ source install/setup.bash
 ros2 launch isaac_orbbec_launch orbbec_dynamics_example.launch.py
 ```
 
+### 4.3 Running Foundationpose Example
+
+Please refer to the following link for more information: [ISAAC ROS FoundationPose](https://nvidia-isaac-ros.github.io/repositories_and_packages/isaac_ros_pose_estimation/isaac_ros_foundationpose/index.html).
+
+To run the Foundationpose example, open one terminal windows:
+
+#### Terminal 1 - Build and Run Foundationpose Example
+
+```bash
+colcon build --cmake-clean-first --packages-select isaac_ros_examples isaac_ros_orbbec isaac_ros_foundationpose orbbec_camera orbbec_camera_msgs orbbec_description
+source install/setup.bash
+ros2 launch isaac_ros_examples isaac_ros_examples.launch.py launch_fragments:=realsense_mono_rect_depth,foundationpose mesh_file_path:=${ISAAC_ROS_WS}/isaac_ros_assets/isaac_ros_foundationpose/Mac_and_cheese_0_1/Mac_and_cheese_0_1.obj texture_path:=${ISAAC_ROS_WS}/isaac_ros_assets/isaac_ros_foundationpose/Mac_and_cheese_0_1/materials/textures/baked_mesh_tex0.png score_engine_file_path:=${ISAAC_ROS_WS}/isaac_ros_assets/models/foundationpose/score_trt_engine.plan refine_engine_file_path:=${ISAAC_ROS_WS}/isaac_ros_assets/models/foundationpose/refine_trt_engine.plan rt_detr_engine_file_path:=${ISAAC_ROS_WS}/isaac_ros_assets/models/synthetica_detr/sdetr_grasp.plan
+```
+
+#### Terminal 2 - Start RViz2 for Foundationpose
+
+```bash
+source install/setup.bash
+rviz2 -d  $(ros2 pkg prefix isaac_ros_foundationpose --share)/rviz/foundationpose_orbbec.rviz
+```
+
 ## 5. Demo Video
 
-For a demonstration of Orbbec Gemini 335L on NVIDIA Jetson AGX Orin with Isaac ROS Visual SLAM and Nvblox, you can watch this video:
+For a demonstration of Orbbec Gemini 335L on NVIDIA Jetson AGX Orin with Isaac ROS Visual SLAM, Nvblox and Foundationpose, you can watch this video:
 
 [Orbbec Gemini 335L Nvblox Demo](https://youtu.be/jpbjC_9eQEI?si=UKw3BR0Gjs6QiKLb)
