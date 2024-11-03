@@ -1,24 +1,25 @@
 [submodule "src/isaac_ros_common"]
-	path = src/isaac_ros_common
-	url = https://github.com/orbbec/isaac_ros_common.git
+    path = src/isaac_ros_common
+    url = git@github.com:orbbec/isaac_ros_common.git
 [submodule "src/isaac_ros_nvblox"]
-	path = src/isaac_ros_nvblox
-	url = https://github.com/orbbec/isaac_ros_nvblox.git
+    path = src/isaac_ros_nvblox
+    url = git@github.com:orbbec/isaac_ros_nvblox.git
 [submodule "src/isaac_ros_visual_slam"]
-	path = src/isaac_ros_visual_slam
-	url = https://github.com/orbbec/isaac_ros_visual_slam.git
+    path = src/isaac_ros_visual_slam
+    url = git@github.com:orbbec/isaac_ros_visual_slam.git
 [submodule "src/OrbbecSDK_ROS2"]
-	path = src/OrbbecSDK_ROS2
-	url = https://github.com/orbbec/OrbbecSDK_ROS2.git
+    path = src/OrbbecSDK_ROS2
+    url = git@github.com:orbbec/OrbbecSDK_ROS2.git
 [submodule "src/isaac_orbbec_launch"]
-	path = src/isaac_orbbec_launch
-	url = https://github.com/orbbec/isaac_orbbec_launch.git
+    path = src/isaac_orbbec_launch
+    url = git@github.com:orbbec/isaac_orbbec_launch.git
 [submodule "src/orbbec_camera_splitter"]
-	path = src/orbbec_camera_splitter
-	url = https://github.com/orbbec/orbbec_camera_splitter.git
+    path = src/orbbec_camera_splitter
+    url = git@github.com:orbbec/orbbec_camera_splitter.git
 [submodule "src/isaac_ros_examples"]
-	path = src/isaac_ros_examples
-	url = https://github.com/orbbec/isaac_ros_examples.git
+    path = src/isaac_ros_examples
+    url = git@github.com:orbbec/isaac_ros_examples.git
 [submodule "src/isaac_ros_pose_estimation"]
-	path = src/isaac_ros_pose_estimation
-	url = https://github.com/orbbec/isaac_ros_pose_estimation.git
+    path = src/isaac_ros_pose_estimation
+    url = git@github.com:orbbec/isaac_ros_pose_estimation.git
+
